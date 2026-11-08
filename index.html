@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>노력하면 살이 빠질까?</title>
+  <meta name="description" content="운동 vs 마운자로 — 같은 남성 두 명의 일생을 지켜보는 인터랙션 웹게임" />
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="./src/style.css" />
+</head>
+<body>
+  <!-- 인트로 -->
+  <section id="intro" aria-label="인트로">
+    <div class="scene" data-scene="q1"><p class="big">우리는 왜<br />살을 못 뺄까요?</p></div>
+    <div class="scene" data-scene="q2"><p class="big">노력이<br />부족해서?</p></div>
+    <div class="scene" data-scene="effort">
+      <div class="intro-stage">
+        <div class="intro-man" id="introMan"></div>
+        <div class="intro-table" id="introTable"></div>
+      </div>
+      <div class="intro-side">
+        <div class="calendar"><span class="cal-label">경과</span><b id="calWeeks">0</b><span class="cal-unit">주</span></div>
+        <div class="intro-dial" id="introDial"></div>
+        <p class="intro-caption" id="introCaption">주 150분 운동 · 식단 관리</p>
+      </div>
+      <div class="intro-syringe" id="introSyringe"></div>
+    </div>
+    <div class="scene" data-scene="q3"><p class="big">노력이 부족한 걸까요,<br />아니면 노력으로는<br />안 되는 걸까요?</p></div>
+    <div class="scene" data-scene="title">
+      <div class="split-man">
+        <div class="half left" id="halfL"></div>
+        <div class="half right" id="halfR"></div>
+      </div>
+      <h1 class="title">노력하면<br />살이 빠질까?</h1>
+      <p class="subtitle">같은 남성 두 명 · 25세 · 105 kg · BMI 38</p>
+      <button id="startBtn" class="start">시작하기</button>
+    </div>
+    <p class="skip-hint">아무 곳이나 클릭하면 건너뜁니다</p>
+  </section>
+
+  <!-- 메인 -->
+  <div id="app" hidden>
+    <header class="topbar">
+      <div class="stat"><span>나이</span><b id="age">25</b><span>세</span></div>
+      <div class="stat"><span>경과</span><b id="weeks">0</b><span>주</span></div>
+      <div class="stat wide"><span>같은 나이 한국 남성 중 2단계 비만</span><b id="prev">9.4</b><span>%</span></div>
+      <div class="spacer"></div>
+      <button id="pauseBtn" class="chip" aria-label="일시정지">❚❚</button>
+      <button id="speedBtn" class="chip" aria-label="속도">×1</button>
+      <button id="dataBtn" class="chip data">ⓘ 데이터</button>
+    </header>
+
+    <main class="split">
+      <!-- 왼쪽: 노력하는 나 -->
+      <section class="side effort" id="sideL">
+        <h2>노력하는 나</h2>
+        <div class="stage">
+          <div class="man" id="manL"></div>
+          <div class="table" id="tableL"></div>
+          <div class="float-layer" id="floatL"></div>
+          <div class="tomb" id="tombL" hidden></div>
+        </div>
+        <div class="scale">
+          <div class="dial" id="dialL"></div>
+          <div class="readout">
+            <div><b id="wL">105.0</b> kg <span class="dim">BMI <span id="bmiL">38.1</span></span></div>
+            <div class="ghost-read">계산상 <b id="gL">105.0</b> kg</div>
+          </div>
+        </div>
+        <div class="controls">
+          <div class="chips" id="exChips"></div>
+          <button id="exBtn" class="action big-btn">운동하기<small>클릭 1회 = 10분</small></button>
+          <div class="minutes"><div class="bar"><i id="minBar"></i><em class="mark" title="주 150분"></em></div><span>이번 주 <b id="minWeek">0</b>분</span></div>
+          <div class="gauges">
+            <label>피로 <span class="gauge fatigue"><i id="fatigueBar"></i></span></label>
+            <label>보상심리 <span class="gauge reward"><i id="rewardBar"></i></span></label>
+          </div>
+          <div class="status" id="statusL">식사 하루 두 끼 · 간식 없음</div>
+        </div>
+      </section>
+
+      <!-- 오른쪽: 알바하고 주사 맞는 나 -->
+      <section class="side drug" id="sideR">
+        <h2>알바하고 주사 맞는 나</h2>
+        <div class="stage">
+          <div class="man" id="manR"></div>
+          <div class="table" id="tableR"></div>
+          <div class="syringe" id="syringeR"></div>
+          <div class="float-layer" id="floatR"></div>
+          <div class="tomb" id="tombR" hidden></div>
+        </div>
+        <div class="scale">
+          <div class="dial" id="dialR"></div>
+          <div class="readout">
+            <div><b id="wR">105.0</b> kg <span class="dim">BMI <span id="bmiR">38.1</span></span></div>
+            <div class="ghost-read money">잔액 <b id="balance">0</b>원</div>
+          </div>
+        </div>
+        <div class="controls">
+          <div class="row">
+            <button id="workBtn" class="action big-btn">알바 1시간<small>+10,320원</small></button>
+            <button id="injectBtn" class="action big-btn alt">주사 맞기<small id="injectSub">2.5 mg · 펜 1개 69,517원/주</small></button>
+          </div>
+          <label class="hold"><input type="checkbox" id="holdChk" /> 증량 멈춤 (현재 용량 유지)</label>
+          <div class="dose-track" id="doseTrack"></div>
+          <div class="status" id="statusR">미투여 · 잔액 0원</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- 데이터 패널 -->
+  <aside id="panel" hidden aria-label="데이터와 출처">
+    <div class="panel-head"><h3>ⓘ 데이터 · 출처 · 계산식</h3><button id="panelClose" class="chip">닫기</button></div>
+    <div class="panel-body" id="panelBody"></div>
+  </aside>
+  <div id="panelBackdrop" hidden></div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

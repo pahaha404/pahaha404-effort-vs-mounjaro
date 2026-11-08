@@ -7,13 +7,16 @@
 
 ## 실행
 
-빌드 없는 정적 사이트다. 아무 정적 서버로 루트를 열면 된다.
+**`index.html` 파일 하나를 더블클릭하면 된다.** CSS와 JS가 전부 안에 들어 있어 서버가 필요 없다.
+전시용 PC에는 이 파일 하나만 가져가면 된다(글꼴 Pretendard만 CDN이라 오프라인이면 시스템 글꼴로 대체).
+
+### 코드를 고칠 때
+
+원본은 `src/` 에 ES module로 나뉘어 있다. 고친 뒤 아래 한 줄이면 `index.html`이 다시 만들어진다.
 
 ```bash
-python3 -m http.server 8080
+node tools/bundle.js
 ```
-
-브라우저에서 `http://localhost:8080` 접속.
 
 ## 테스트
 
@@ -34,14 +37,17 @@ SURMOUNT-1 위약군 72주 −3.1 %(주 150분 운동), 15 mg 72주 −17.8 %p, 
 ## 구조
 
 ```
-index.html          화면 골격
+index.html          완성본 — 이 파일 하나로 실행 (tools/bundle.js 가 생성)
+src/page.html       화면 골격 (원본)
 src/style.css       비주얼 규칙 (크림 배경, 빨간 테이블, 왼쪽 주황·초록, 오른쪽 보라·자주)
 src/data.js         모든 상수 + 출처 주석 ("추정" 표기 포함)
 src/model.js        세트 포인트 체중 모델 — 순수 함수
 src/characters.js   캐릭터·테이블·체중계·주사기·묘비 인라인 SVG
+src/chart.js        체중 타임라인 차트
 src/intro.js        25초 인트로 모션 (클릭으로 건너뛰기)
-src/game.js         메인 게임 루프와 렌더링
+src/game.js         턴제 메인 게임과 렌더링
 src/panel.js        ⓘ 데이터 패널
 tests/model.test.js 모델 검증
 tools/calibrate.js  파라미터 보정
+tools/bundle.js     src/ → index.html 한 파일로 합치기
 ```

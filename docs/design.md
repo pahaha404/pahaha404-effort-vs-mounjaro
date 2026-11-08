@@ -105,6 +105,7 @@ W_set = W₀ × (1 − s(용량)),  s(d) = drugShiftMax · d / (d + K50),  미�
 
 ## 6. 기술
 
-- 빌드 없는 정적 사이트. 루트 `index.html`, `src/` 아래 ES module JS와 CSS. 외부 의존은 Pretendard CDN뿐.
+- 완성본은 **`index.html` 한 파일**(CSS·JS 인라인). 더블클릭으로 열린다. 외부 의존은 Pretendard CDN뿐.
+- 원본은 `src/` 아래 ES module JS와 CSS(`src/page.html` 골격). `node tools/bundle.js`가 import/export만 걷어내고 한 파일로 합친다(의존성 없음).
 - `src/data.js` 상수 + 출처 주석, `src/model.js` 순수 함수, `tests/model.test.js`(node).
 - Vercel: 저장소 import → Framework Preset "Other", 빌드 명령 없음, 출력 디렉터리 루트.

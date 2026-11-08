@@ -83,7 +83,7 @@
 
 ```
 net_real  = 간식 kcal + 노화 잉여 kcal − 운동 kcal × (1 − compensation)
-net_ghost = 간식 kcal + 노화 잉여 kcal − 운동 kcal
+net_ghost = 간식 kcal − 운동 kcal            (플레이어 행동만 산술 누적)
 W'  = W + net_real / 7700 + κ · (W_set − W)
 G'  = G + net_ghost / 7700
 W_set = W₀ × (1 − s(용량)),  s(d) = drugShiftMax · d / (d + K50),  미투여 s = 0

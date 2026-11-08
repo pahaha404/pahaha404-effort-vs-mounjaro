@@ -9,7 +9,8 @@
 //         = kappaDown (W > Wset: 세트 포인트로 "내려가는" 힘, 투여 중 감량)
 //   Wset  = W0 × (1 − s(용량)),  s(d) = drugShiftMax · d / (d + drugShiftK50), 미투여 시 s = 0
 //
-// 유령 바늘(칼로리 계산상 체중)은 κ 항 없이 net/7700 만 누적한 값이다.
+// 유령 바늘(칼로리 계산상 체중)은 플레이어의 행동(운동·간식)만 7,700 kcal/kg 산술로 누적한 값이다.
+//   G'    = G + (간식 kcal − 운동 kcal) / 7700   (κ 항·노화 항 없음)
 // ============================================================
 import {
   CHARACTER, EXERCISES, KCAL_PER_KG, MODEL, METABOLIC_DECLINE, BMI_MORTALITY_HR,
@@ -50,7 +51,7 @@ export function stepWeek(state, input, p = MODEL) {
   const snack = input.snackKcal || 0;
   const aging = agingSurplusKcalPerWeek(state.weight, state.age);
   const netReal = snack + aging - ex * (1 - p.compensation);
-  const netGhost = snack + aging - ex;
+  const netGhost = snack - ex;
   const wset = w0 * (1 - drugShift(input.doseMg, p));
   const kappa = state.weight < wset ? p.kappaUp : p.kappaDown;
   const weight = state.weight + netReal / KCAL_PER_KG + kappa * (wset - state.weight);

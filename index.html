@@ -9,6 +9,22 @@
   <link rel="stylesheet" href="./src/style.css" />
 </head>
 <body>
+  <!-- file:// 로 직접 열면 브라우저가 ES module 로드를 막는다. 서버로 열도록 안내한다. -->
+  <script>
+    if (location.protocol === 'file:') {
+      document.addEventListener('DOMContentLoaded', function () {
+        document.body.innerHTML =
+          '<div style="min-height:100vh;display:grid;place-items:center;padding:24px;text-align:center;line-height:1.6">' +
+          '<div style="max-width:560px"><p style="font-size:26px;font-weight:800;margin:0 0 12px">파일을 직접 열면 실행되지 않아요</p>' +
+          '<p style="margin:0 0 18px;color:#7A6A5C;font-weight:600">브라우저가 <code>file://</code>에서는 모듈 스크립트를 막습니다.<br>아래 방법 중 하나로 열어 주세요.</p>' +
+          '<div style="text-align:left;background:#fff;border:2px solid #E6D8C3;border-radius:16px;padding:16px 20px">' +
+          '<p style="margin:0 0 8px"><b>1. Vercel 배포 주소</b>로 접속</p>' +
+          '<p style="margin:0 0 8px"><b>2. 로컬 서버</b> — 이 폴더에서 터미널(명령 프롬프트)을 열고<br><code style="background:#FBEFD9;padding:2px 6px;border-radius:4px">python -m http.server 8080</code> 실행 후 <code>http://localhost:8080</code> 접속<br><span style="color:#7A6A5C;font-size:13px">(Windows에서 python이 없으면 <code>py -m http.server 8080</code>)</span></p>' +
+          '<p style="margin:0"><b>3. VS Code</b> — Live Server 확장으로 index.html 열기</p>' +
+          '</div></div></div>';
+      });
+    }
+  </script>
   <!-- 인트로 -->
   <section id="intro" aria-label="인트로">
     <div class="scene" data-scene="q1"><p class="big">우리는 왜<br />살을 못 뺄까요?</p></div>

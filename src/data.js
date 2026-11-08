@@ -188,6 +188,5 @@ export const MODEL = {
   drugShiftK50: 5.11,    // mg
 };
 
-/** 시간 흐름 (설계서 §3): 1주 ≈ 2초 (1배속). */
-export const SECONDS_PER_WEEK = 2;
-export const SPEEDS = [0.5, 1, 2, 4, 8, 16, 32];
+/** 시간 흐름 (설계서 §3): 턴제. 첫해 1턴 = 4주, 2~3년차 13주, 이후 52주. 재생 속도는 game.js msPerWeek. */
+export const TURN_WEEKS = { year1: 4, year2to3: 13, after: 52 };

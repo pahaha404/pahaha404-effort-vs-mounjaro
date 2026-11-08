@@ -56,7 +56,7 @@ export function stepWeek(state, input, p = MODEL) {
   const kappa = state.weight < wset ? p.kappaUp : p.kappaDown;
   const weight = state.weight + netReal / KCAL_PER_KG + kappa * (wset - state.weight);
   const ghost = (state.ghost ?? state.weight) + netGhost / KCAL_PER_KG;
-  return { ...state, weight: Math.max(30, weight), ghost: Math.max(20, ghost), setPoint: wset };
+  return { ...state, weight: Math.max(30, weight), ghost, setPoint: wset };
 }
 
 /** 임상 증량 스케줄: 투여 n주차(0부터)의 용량. holdAt 이 있으면 그 용량에서 멈춘다. */

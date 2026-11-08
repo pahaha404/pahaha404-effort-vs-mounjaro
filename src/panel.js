@@ -2,7 +2,7 @@
 import {
   SURMOUNT1, SURMOUNT4, EXERCISES, KCAL_PER_KG, HOURLY_WAGE, MOUNJARO_BOX_PRICE, MOUNJARO_ESTIMATED_DOSES,
   BMI_MORTALITY_HR, CLASS2_OBESITY_MEN_BY_AGE, MALE_DEATH_PROB, METABOLIC_DECLINE, DAILY_INTAKE_MEN, SNACKS,
-  SNACK, REWARD_GAUGE, FATIGUE_GAUGE, MODEL, MINUTES_PER_CLICK, SECONDS_PER_WEEK,
+  SNACK, REWARD_GAUGE, FATIGUE_GAUGE, MODEL, MINUTES_PER_CLICK,
 } from './data.js';
 
 const won = (n) => n.toLocaleString('ko-KR') + '원';
@@ -32,7 +32,7 @@ const rows = [
   ['D12', '식사·간식 열량', '국민건강영양조사 2021(질병관리청); 간식은 식약처 영양DB 근사',
     `남자 1일 평균 ${DAILY_INTAKE_MEN.toLocaleString()} kcal → 하루 두 끼(세트 포인트 유지분, 모델에서 0). 간식: ` + SNACKS.map((s) => `${s.emoji} ${s.name} ${s.kcal}`).join(' · ') + ` kcal${EST}`, '부분 확인'],
   ['D13', '운동 후 보상(compensation)과 간식 확률', 'Thomas DM et al. <i>Obes Rev</i> 2012;13:835-47',
-    `운동 감량은 예측보다 작다(섭취 증가·NEAT 감소). 게임 수치${EST}: 하루 간식 확률 = ${SNACK.basePerDay} + ${SNACK.slopePerDay} × 보상게이지, 투여 중 × ${SNACK.onDrugFactor}. 보상게이지 +${REWARD_GAUGE.perClick}/클릭, 주마다 ${REWARD_GAUGE.decayPerWeek * 100}% 감쇠. 피로 +${FATIGUE_GAUGE.perClick}/클릭, 초당 −${FATIGUE_GAUGE.decayPerSecond}, 가득 차면 ${FATIGUE_GAUGE.lockSeconds}초 휴식`, '정성적 확인'],
+    `운동 감량은 예측보다 작다(섭취 증가·NEAT 감소). 게임 수치${EST}: 턴 시작 시 간식 유혹 확률 = 3 × (${SNACK.basePerDay} + ${SNACK.slopePerDay} × 보상게이지), 투여 중 간식 × ${SNACK.onDrugFactor}. 보상게이지 +${REWARD_GAUGE.perClick}/운동 10분, 주마다 ${REWARD_GAUGE.decayPerWeek * 100}% 감쇠. 연타 4초: 피로 +${FATIGUE_GAUGE.perClick}/클릭, 초당 −${FATIGUE_GAUGE.decayPerSecond}, 가득 차면 ${FATIGUE_GAUGE.lockSeconds}초 휴식`, '정성적 확인'],
 ];
 
 export function buildPanel() {
@@ -49,7 +49,7 @@ export function buildPanel() {
     <p><code>W_set = 105 × (1 − ${MODEL.drugShiftMax} · 용량 / (용량 + ${MODEL.drugShiftK50}))</code> &nbsp; 미투여 시 105 kg</p>
     <p class="note">보정${EST}: compensation ← D1 위약군 72주 −3.1 % · κ(아래) ← D2 중단 후 52주 +14.0 % · κ(위) ← D1 15 mg 곡선 형태 · 용량 곡선 ← D1 5/10/15 mg. 검증은 <code>node tests/model.test.js</code>.</p>
     <h4>시간</h4>
-    <p>1주 ≈ ${SECONDS_PER_WEEK}초(1배속). 두 캐릭터 모두 25세, 105 kg, 키 166 cm, BMI 38.1에서 시작. 끝 화면 없음.</p>
+    <p>턴제. 턴마다 멈추고 묻는다(운동? 알바? 투여?). 첫해 1턴 = 4주, 2~3년차 13주, 이후 52주. 두 캐릭터 모두 25세, 105 kg, 키 166 cm, BMI 38.1에서 시작. 끝 화면 없음.</p>
   `;
   const panel = document.querySelector('#panel'), back = document.querySelector('#panelBackdrop');
   const open = (v) => { panel.hidden = !v; back.hidden = !v; };

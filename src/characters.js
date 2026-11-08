@@ -21,7 +21,7 @@ export function hairColor(age) {
  * shirt: 셔츠 색. viewBox 200×260.
  */
 export function manSVG({ bmi = CHARACTER.bmi0, age = 25, shirt = '#F28C28', pants = '#6B5A4B', skin = '#F5C9A2' } = {}) {
-  const f = clamp(Math.sqrt(bmi / 23), 0.82, 1.6);       // 체형 폭 계수 (BMI 23 = 1.0)
+  const f = clamp(Math.pow(bmi / 23, 1.15), 0.75, 1.9);  // 체형 폭 계수 (BMI 23 = 1.0, 31 ≈ 1.4, 38 ≈ 1.8)
   const w = 58 * f;                                        // 몸통 폭
   const belly = 44 * f;                                    // 배 반지름
   const faceR = 28 + 7 * (f - 1);                          // 볼살

@@ -61,43 +61,37 @@
       <div class="stat"><span>경과</span><b id="weeks">0</b><span>주</span></div>
       <div class="stat wide"><span>같은 나이 한국 남성 중 2단계 비만</span><b id="prev">9.4</b><span>%</span></div>
       <div class="spacer"></div>
-      <button id="pauseBtn" class="chip" aria-label="일시정지">❚❚</button>
-      <button id="speedBtn" class="chip" aria-label="속도">×1</button>
+      <span class="turn-label" id="turnLabel"></span>
+      <button id="autoBtn" class="chip" title="질문을 건너뛰고 지난 선택을 반복합니다. 사건이 생기면 멈춥니다.">같은 선택 반복</button>
       <button id="dataBtn" class="chip data">ⓘ 데이터</button>
     </header>
+
+    <section class="chart-wrap">
+      <div class="legend">
+        <span class="lg effort"><i class="line"></i>노력하는 나 <b id="lgL">105.0</b> kg</span>
+        <span class="lg ghost"><i class="line dashed"></i>칼로리 계산상 <b id="lgG">105.0</b> kg</span>
+        <span class="lg drug"><i class="line"></i>주사 맞는 나 <b id="lgR">105.0</b> kg</span>
+        <span class="lg diff">두 사람 차이 <b id="lgDiff">0.0</b> kg</span>
+      </div>
+      <div id="chart"></div>
+    </section>
 
     <main class="split">
       <!-- 왼쪽: 노력하는 나 -->
       <section class="side effort" id="sideL">
-        <h2>노력하는 나</h2>
+        <h2>노력하는 나 <span class="w"><b id="wL">105.0</b> kg · BMI <span id="bmiL">38.1</span> · <span id="dL">시작</span></span></h2>
         <div class="stage">
           <div class="man" id="manL"></div>
           <div class="table" id="tableL"></div>
           <div class="float-layer" id="floatL"></div>
           <div class="tomb" id="tombL" hidden></div>
         </div>
-        <div class="scale">
-          <div class="dial" id="dialL"></div>
-          <div class="readout">
-            <div><b id="wL">105.0</b> kg <span class="dim">BMI <span id="bmiL">38.1</span></span></div>
-            <div class="ghost-read">계산상 <b id="gL">105.0</b> kg</div>
-          </div>
-        </div>
-        <div class="controls">
-          <div class="chips" id="exChips"></div>
-          <button id="exBtn" class="action big-btn">운동하기<small>클릭 1회 = 10분</small></button>
-          <div class="minutes"><div class="bar"><i id="minBar"></i><em class="mark" title="주 150분"></em></div><span>이번 주 <b id="minWeek">0</b>분</span></div>
-          <div class="gauges">
-            <label>피로 <span class="gauge fatigue"><i id="fatigueBar"></i></span></label>
-            <label>보상심리 <span class="gauge reward"><i id="rewardBar"></i></span></label>
-          </div>
-          <div class="status" id="statusL">식사 하루 두 끼 · 간식 없음</div>
-        </div>
+        <div class="card" id="cardL"></div>
       </section>
 
       <!-- 오른쪽: 알바하고 주사 맞는 나 -->
       <section class="side drug" id="sideR">
-        <h2>알바하고 주사 맞는 나</h2>
+        <h2>알바하고 주사 맞는 나 <span class="w"><b id="wR">105.0</b> kg · BMI <span id="bmiR">38.1</span> · <span id="dR">시작</span></span></h2>
         <div class="stage">
           <div class="man" id="manR"></div>
           <div class="table" id="tableR"></div>
@@ -105,22 +99,7 @@
           <div class="float-layer" id="floatR"></div>
           <div class="tomb" id="tombR" hidden></div>
         </div>
-        <div class="scale">
-          <div class="dial" id="dialR"></div>
-          <div class="readout">
-            <div><b id="wR">105.0</b> kg <span class="dim">BMI <span id="bmiR">38.1</span></span></div>
-            <div class="ghost-read money">잔액 <b id="balance">0</b>원</div>
-          </div>
-        </div>
-        <div class="controls">
-          <div class="row">
-            <button id="workBtn" class="action big-btn">알바 1시간<small>+10,320원</small></button>
-            <button id="injectBtn" class="action big-btn alt">주사 맞기<small id="injectSub">2.5 mg · 펜 1개 69,517원/주</small></button>
-          </div>
-          <label class="hold"><input type="checkbox" id="holdChk" /> 증량 멈춤 (현재 용량 유지)</label>
-          <div class="dose-track" id="doseTrack"></div>
-          <div class="status" id="statusR">미투여 · 잔액 0원</div>
-        </div>
+        <div class="card" id="cardR"></div>
       </section>
     </main>
   </div>
